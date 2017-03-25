@@ -15,7 +15,7 @@ if __name__ == "__main__":
     # mean_npy has shape 1x3x224x224, more detail see https://github.com/KaimingHe/deep-residual-networks/issues/5
     mean_npy = caffe.io.blobproto_to_array(mean_blob)
 
-    caffe.set_mode_cpu()
+    caffe.set_mode_gpu()
     model_def = "ResNet-50/ResNet-50-deploy.prototxt"
     model_weight = "ResNet-50/ResNet-50-model.caffemodel"
 
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     for layer_name, blob in net.blobs.iteritems():
         print layer_name + "\t" + str(blob.data.shape)
 
-    feat = net.blobs['res5c'].data # we will get feature after at least one forward
+    feat = net.blobs['pool5'].data # we will get feature after at least one forward
     print np.shape(feat)
 
 
